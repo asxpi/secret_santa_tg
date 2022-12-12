@@ -1,5 +1,5 @@
---local api = require('telegram-bot-lua.core').configure('5842622732:AAGlom1wBdphCYrIq_uKCyn7eoahmZR3v5s')
-local api = require('telegram-bot-lua.core').configure('1608800507:AAHCwMjF38CP4VI6sSjQQi2ciOen4Yz7GDo')
+--local api = require('telegram-bot-lua.core').configure('')
+local api = require('telegram-bot-lua.core').configure('')
 local inspect = require 'inspect'
 local jsonstorage = require 'jsonstorage'
 
