@@ -1,9 +1,9 @@
---local api = require('telegram-bot-lua.core').configure('')
-local api = require('telegram-bot-lua.core').configure('')
+local api = require('telegram-bot-lua.core').configure('5842622732:AAGlom1wBdphCYrIq_uKCyn7eoahmZR3v5s')
+--local api = require('telegram-bot-lua.core').configure('1608800507:AAHCwMjF38CP4VI6sSjQQi2ciOen4Yz7GDo')
 local inspect = require 'inspect'
 local jsonstorage = require 'jsonstorage'
 
-local adminid = adminid
+local adminid = 298559527
 local firstTime = true
 local db = { } 
 
@@ -16,7 +16,7 @@ local function load()
 end
 
 function api.on_message(message)
-    --print(inspect(message))
+    print(inspect(message))
 
     if firstTime then
         firstTime = false
@@ -89,7 +89,7 @@ function api.on_message(message)
         )
         db[arrayid].like = message.text:gsub("%/like ", "")
         end
-    end
+    end 
 
     if message.text and message.text:match('/dislike') then
         if(type(db[arrayid]) == 'nil') then
@@ -198,6 +198,7 @@ function api.on_message(message)
                 text   
             )
         else
+	    print(message.chat.id)
             api.send_message(
             message.chat.id,
             'Ты не @asxpi, сходи нахуй.'      
@@ -205,17 +206,24 @@ function api.on_message(message)
         end
     end
 
-    if message.text and message.text:match('/me') then
-        local text = 'Привет. Секретный санта начался.\n'
-        ..'Твоя цель:@'..message.chat.username..' или Telegram ID:'..message.chat.id..' , если эта мразь сменила ник в телеге.\n'
-        ..'Твоя цель любит: ' .. db[arrayid].like .. '\n'
-        ..'Твоя цель не любит: ' .. db[arrayid].dislike ..'\n'
-        ..'После окончания игры мы раскажем кто был твоим Секретным Сантой'
 
-        api.send_message(
-            message.chat.id,
-            text     
-        )
+    if message.text and message.text:match('/me') then
+        if(type(db[arrayid]) == 'nil') then
+            api.send_message(
+                message.chat.id,
+                'Сначало зарегистрируйся \n/register'
+            )
+        else 
+            local text = 'Привет. Секретный санта начался.\n'
+            ..'Твоя цель:@'..message.chat.username..' или Telegram ID:'..message.chat.id..' , если эта мразь сменила ник в телеге.\n'
+            ..'Твоя цель любит: ' .. db[arrayid].like .. '\n'
+            ..'Твоя цель не любит: ' .. db[arrayid].dislike ..'\n'
+            ..'После окончания игры мы раскажем кто был твоим Секретным Сантой'
+            api.send_message(
+                message.chat.id,
+                text     
+            )
+        end
     end
 
     if message.text and message.text:match('/end') then
